@@ -2,11 +2,10 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { CustomerRoute } from "../auth/ProtectedRoute.jsx";
 
-import Signup from "../customer/auth/signup/page.jsx";
-import LoginPage from "../customer/auth/login/page.jsx";
-import VerifyTokenPage from "../customer/auth/Token/page.jsx";
-import ResetPasswordPage from "../customer/auth/login/ResetPasswordPage.jsx";
-import ForgotPasswordPage from "../customer/auth/login/ForgotPasswordPage.jsx";
+import Signup from "../auth/signup/page.jsx";
+import VerifyTokenPage from "../auth/login/Token/page.jsx";
+import ResetPasswordPage from "../auth/ResetPassword/ResetPasswordPage.jsx";
+import ForgotPasswordPage from "../auth/ForgotPassword/ForgotPasswordPage.jsx";
 
 import Dashboard from "../customer/page.jsx";
 import PaymentsPage from "../customer/payment/page.jsx";
@@ -15,6 +14,7 @@ import Support from "../customer/support/page.jsx";
 import AddTroubleTicket from "../customer/support/Addfollowup/page.jsx";
 import MyRatesPage from "../customer/myRate/page.jsx";
 import SettingsPage from "../customer/settings/page.jsx";
+import LoginPage from "../auth/login/page.jsx";
 
 const CustomerRoutes = () => {
   return (

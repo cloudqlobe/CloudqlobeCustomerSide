@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import axiosInstance from '../../../utils/axiosinstance';
+import axiosInstance from '../../utils/axiosinstance';
 
 const ResetPasswordPage = () => {
   const navigate = useNavigate();

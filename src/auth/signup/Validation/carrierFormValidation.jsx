@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../utils/axiosinstance";
+import axiosInstance from "../../../utils/axiosinstance";
 
 export const CarrierValidateRegisterForm = (companyDetails, userDetails, technicalDetails) => {
   const errors = {};
@@ -53,16 +53,16 @@ export const CarrierValidateRegisterForm = (companyDetails, userDetails, technic
   }
 
   /* ---------------- Teams ID (Carrier Only) ---------------- */
-  if (!userDetails?.teamsId?.trim()) {
-    errors.teamsId = "Teams ID is required";
-  } else if (userDetails.teamsId.length < 3) {
-    errors.teamsId = "Teams ID must be at least 3 characters";
-  } else if (userDetails.teamsId.length > 20) {
-    errors.teamsId = "Teams ID must not exceed 20 characters";
-  } else if (!/^[a-zA-Z0-9_-]+$/.test(userDetails.teamsId)) {
-    errors.teamsId =
-      "Teams ID can contain only letters, numbers, hyphens, and underscores";
-  }
+  // if (!userDetails?.teamsId?.trim()) {
+  //   errors.teamsId = "Teams ID is required";
+  // } else if (userDetails.teamsId.length < 3) {
+  //   errors.teamsId = "Teams ID must be at least 3 characters";
+  // } else if (userDetails.teamsId.length > 20) {
+  //   errors.teamsId = "Teams ID must not exceed 20 characters";
+  // } else if (!/^[a-zA-Z0-9_-]+$/.test(userDetails.teamsId)) {
+  //   errors.teamsId =
+  //     "Teams ID can contain only letters, numbers, hyphens, and underscores";
+  // }
 
   // Designation Validation
   if (!userDetails.designation.trim()) {
@@ -103,6 +103,8 @@ export const CarrierValidateRegisterForm = (companyDetails, userDetails, technic
 };
 
 export const submitRegistration = async (formData) => {
+  console.log(formData);
+  
   try {
     // Create a deep copy of the formData to avoid mutating the original object
     const dataToSend = JSON.parse(JSON.stringify(formData));
@@ -112,7 +114,7 @@ export const submitRegistration = async (formData) => {
       delete dataToSend.user.confirmPassword;
     }
 
-    const response = await axiosInstance.post('/api/vendor', dataToSend, {
+    const response = await axiosInstance.post('/api/vendor/create', dataToSend, {
       headers: {
         'Content-Type': 'application/json',
       },
@@ -129,6 +131,7 @@ export const submitRegistration = async (formData) => {
         const duplicateFields = error.response.data.duplicateFields;
         throw new Error(duplicateFields);
       }
+console.log(error.response);
 
       const serverMessage = error.response.data?.message || 'Registration failed';
       throw new Error(serverMessage);

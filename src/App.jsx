@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalLoader from "./components/GlobalLoader.jsx";
+import VendorRoutes from "./routes/VendorRoutes.jsx";
 
 function App() {
 
@@ -35,6 +36,8 @@ function App() {
 
           {/* Customer Routes */}
           <Route path="/customer/*" element={<CustomerRoutes />} />
+
+          <Route path="/vendor/*" element={<VendorRoutes />} />
 
         </Routes>
 

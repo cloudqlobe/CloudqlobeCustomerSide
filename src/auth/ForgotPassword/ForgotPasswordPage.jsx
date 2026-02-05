@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../../utils/axiosinstance';
+import axiosInstance from '../../utils/axiosinstance';
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const ForgotPasswordPage = () => {
     try {
       const response = await axiosInstance.post('/api/forgot-password', { email });
       setSuccess(true);
-      sessionStorage.setItem("forgotAuthToken",response?.data.forgotPasswordToken)
+      // sessionStorage.setItem("forgotAuthToken",response?.data.forgotPasswordToken)
     } catch (err) {
       console.error('Error sending reset link:', err);
       setError(err.response?.data?.message || 'Failed to send reset link. Please try again.');

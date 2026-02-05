@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Lightbulb, Briefcase, Megaphone, Award, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../../utils/axiosinstance";
-import { useLoader } from "../../../context/LoaderContext/page";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../../../utils/axiosinstance";
+import { useLoader } from "../../../context/LoaderContext/page";
 
-const Loginpagemain = () => {
+const CustomerLoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
@@ -228,4 +228,4 @@ const Loginpagemain = () => {
   );
 };
 
-export default Loginpagemain;
+export default CustomerLoginPage;

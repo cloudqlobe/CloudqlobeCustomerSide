@@ -1,4 +1,4 @@
-import axiosInstance from "../../../../utils/axiosinstance";
+import axiosInstance from "../../../utils/axiosinstance";
 
 export const CustomerValidateRegisterForm = (companyDetails, userDetails, technicalDetails) => {
   const errors = {};

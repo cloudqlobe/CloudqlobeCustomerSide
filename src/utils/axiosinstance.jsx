@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL:'https://api.cloudqlobe.com',  //'https://api.cloudqlobe.com/'
+  baseURL: 'https://api.cloudqlobe.com',  //'https://api.cloudqlobe.com/'
   withCredentials: true, // If using cookies for authentication
 });
 
@@ -26,11 +26,16 @@ axiosInstance.interceptors.response.use(
 axiosInstance.interceptors.request.use(
   (config) => {
     const customerToken = sessionStorage.getItem('authToken');
+    const vendorToken = sessionStorage.getItem('Ven-Au-To');
+
 
     // ✅ Attach token based on priority (or customize per API)
     if (customerToken) {
       config.headers['Authorization'] = `Bearer ${customerToken}`;
+    }else if (vendorToken) {
+      config.headers['Authorization'] = `Bearer ${vendorToken}`;
     }
+
     return config;
   },
   (error) => {

@@ -9,8 +9,27 @@ import {
   Network,
   KeyRound
 } from "lucide-react";
+import { toast } from "react-toastify";
 
-const SecurityPanelLayout = ({ onLoginClick }) => {
+const SecurityPanelLayout = ({ onLoginClick, selectedType }) => {
+
+  const handleCustomerRegister = () => {
+    toast.success("Customer Login Page");
+    onLoginClick("customer"); // 🔥 pass type
+  };
+  
+  const handleCarrierRegister = () => {
+    toast.info("Carrier Login Page");
+    onLoginClick("carrier"); // 🔥 pass type
+  };
+  
+    const activeClass =
+      "bg-yellow-500 text-white border-yellow-500 shadow-lg scale-105";
+  
+    const inactiveClass =
+      "bg-white text-gray-500 border-gray-400 hover:bg-yellow-50 hover:text-yellow-600 hover:border-yellow-500";
+  
+
   return (
     <div className="flex flex-col lg:flex-row min-h-[400px] lg:h-[500px] bg-white rounded-2xl overflow-hidden mt-12 sm:mt-16 lg:mt-[100px] mx-4 sm:mx-6 lg:mx-0">
       {/* Left Panel */}
@@ -35,22 +54,24 @@ const SecurityPanelLayout = ({ onLoginClick }) => {
 
         {/* Lock & Login Buttons - Responsive Layout */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-2 mt-6 sm:mt-8 lg:-mt-[-50px] lg:ml-[-40px]">
-          {/* Lock Tab */}
-          <div className="flex justify-center">
-            <button className="flex items-center justify-center gap-3 text-gray-500 px-6 sm:px-8 lg:px-10 py-3">
-              <Lock size={40} className="sm:w-12 sm:h-12 lg:w-14 lg:h-14" />
+
+          {/* Login Button */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-[10px] ml-[39px] sm:mt-8 lg:mt-0">
+            <button
+              onClick={handleCustomerRegister}
+              className={`${selectedType === "customer" ? activeClass : inactiveClass} flex items-center justify-center border border-orange-500 text-orange-500 px-12 sm:px-16 lg:px-24 py-3 rounded-lg hover:bg-orange-50 transition font-medium shadow-sm w-full sm:w-auto`}
+            >
+              Customer Login
+            </button>
+
+            <button
+              onClick={handleCarrierRegister}
+              className={`${selectedType === "carrier" ? activeClass : inactiveClass} flex items-center justify-center border border-orange-500 text-orange-500 px-12 sm:px-16 lg:px-24 py-3 rounded-lg hover:bg-orange-50 transition font-medium shadow-sm w-full sm:w-auto`}
+            >
+              Carrier Login
             </button>
           </div>
 
-          {/* Login Button */}
-          <div className="lg:mt-[20px] lg:ml-[-20px] w-full sm:w-auto">
-            <button
-              onClick={onLoginClick}
-              className="flex items-center justify-center gap-3 border border-orange-500 text-orange-500 px-12 sm:px-16 lg:px-24 py-3 rounded-lg hover:bg-orange-50 transition font-medium shadow-sm w-full sm:w-auto"
-            >
-              Login
-            </button>
-          </div>
         </div>
       </div>
 
