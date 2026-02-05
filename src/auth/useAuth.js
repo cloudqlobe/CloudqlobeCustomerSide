@@ -24,7 +24,6 @@ const useAuth = (role = "user") => {
 
           if (!existingToken) {
             sessionStorage.setItem(tokenName, token);
-            window.location.reload(); // reload once
             return;
           }
         }

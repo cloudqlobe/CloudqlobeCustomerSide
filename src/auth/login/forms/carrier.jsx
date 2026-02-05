@@ -28,7 +28,7 @@ export default function CarrierLoginPage() {
     } catch (err) {
       console.error("Login error:", err);
       setError(
-        err.response?.data?.message ||
+        err.response?.data?.error ||
         "Login failed. Please check your credentials and try again."
       );
     } finally {
@@ -106,6 +106,11 @@ export default function CarrierLoginPage() {
 
             </div>
           </div>
+          {error && (
+            <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md text-sm">
+              {error}
+            </div>
+          )}
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-5">

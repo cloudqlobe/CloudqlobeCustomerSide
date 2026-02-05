@@ -14,11 +14,11 @@ const VendorRoutes = () => {
       <Route path="/reset-password" element={<VendorResetPasswordPage />} />
       <Route path="/forgot-password" element={<VendorForgotPasswordPage />} />
         <Route path="/*" element={
-          <CarrierRoute>
+          // <CarrierRoute>
             <Routes>
               <Route path="/dashboard" element={<VendorDashboard />} />
             </Routes>
-          </CarrierRoute>
+          // </CarrierRoute>
         }
         />
     </Routes>

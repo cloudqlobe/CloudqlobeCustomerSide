@@ -5,33 +5,22 @@ import { RiSecurePaymentFill } from "react-icons/ri";
 import { MdOutlineAttachEmail } from "react-icons/md";
 import { SiMoneygram } from "react-icons/si";
 import { LuTicketsPlane } from "react-icons/lu";
-import { SiWebmoney } from "react-icons/si";
 import { RiMoneyDollarBoxLine } from "react-icons/ri";
 
 import {
     CheckCircle,
     User, Mail, Building, MapPin,
-    Users, Signal, Globe, Wifi,
-    Phone, Router, Smartphone, Network,
+    Signal, Globe,
+    Smartphone, Network,
     Settings, DollarSign, LogOut,
-    Bell, Activity, Zap,
+    Activity, Zap,
     TrendingUp, Shield, ChevronDown,
-    AlertTriangle, XCircle, Info,
-    ShoppingCart,
+    AlertTriangle, Info,
     FileText,
     ChevronLeft,
     ChevronRight,
     Star,
-    Wallet,
-    CreditCard,
-    Lock,
-    ExternalLink,
-    Copy,
-    Eye,
-    EyeOff,
     CheckCircle2,
-    ArrowUp,
-    ArrowDown
 } from "lucide-react";
 import {
     LineChart,
@@ -41,25 +30,15 @@ import {
     CartesianGrid,
     Tooltip,
     ResponsiveContainer,
-    Area,
-    AreaChart
 } from "recharts";
 import Navbar from "../public/Components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 
 const Dashboard = () => {
+    const navigate = useNavigate();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
-    const [notifications, setNotifications] = useState(3);
-    const [activeTab, setActiveTab] = useState("balance");
-    const [showPassword, setShowPassword] = useState(false);
-    const [copiedField, setCopiedField] = useState(null);
 
-    const userInfo = [
-        { icon: User, label: "Customer ID", value: "TEL123456" },
-        { icon: Mail, label: "Contact Email", value: "contact@telecom.com" },
-        { icon: Building, label: "Company Name", value: "TeleConnect Solutions" },
-        { icon: MapPin, label: "Service Region", value: "Delhi, India" },
-    ];
     const trafficData = [
         { time: "00", value: 12, trend: "down" },
         { time: "02", value: 18, trend: "up" },
@@ -136,47 +115,6 @@ const Dashboard = () => {
             borderColor: "border-red-200",
             iconBg: "bg-red-500",
             rating: 5,
-        },
-    ];
-
-
-
-    const stats = [
-        {
-            icon: Signal,
-            value: "99.9%",
-            label: "Network Uptime",
-            change: "+0.2%",
-            color: "bg-gradient-to-br from-emerald-500 to-emerald-600",
-            subtext: "Last 30 days",
-            trend: "up"
-        },
-        {
-            icon: Users,
-            value: "2.5K",
-            label: "Connected Users",
-            change: "+15%",
-            color: "bg-gradient-to-br from-blue-500 to-blue-600",
-            subtext: "Active sessions",
-            trend: "up"
-        },
-        {
-            icon: Globe,
-            value: "45",
-            label: "Global Nodes",
-            change: "+8%",
-            color: "bg-gradient-to-br from-purple-500 to-purple-600",
-            subtext: "Worldwide coverage",
-            trend: "up"
-        },
-        {
-            icon: Wifi,
-            value: "850",
-            label: "Base Stations",
-            change: "+12%",
-            color: "bg-gradient-to-br from-orange-500 to-orange-600",
-            subtext: "Network infrastructure",
-            trend: "up"
         },
     ];
 
@@ -275,45 +213,45 @@ const Dashboard = () => {
         { icon: LogOut, label: "Logout", color: "text-red-600" },
     ];
 
-    const accountDetails = [
-        { icon: User, label: "Customer ID", value: "TEL123456", gradient: "from-blue-500/20 to-cyan-500/20" },
-        { icon: Building, label: "Company", value: "TeleConnect Solutions", gradient: "from-purple-500/20 to-indigo-500/20" },
-        { icon: Mail, label: "Email", value: "contact@telecom.com", gradient: "from-green-500/20 to-emerald-500/20" },
-        { icon: MapPin, label: "Location", value: "Delhi, India", gradient: "from-orange-500/20 to-amber-500/20" }
+    const actionTabs = [
+        {
+            label: "Payment Center",
+            icon: RiSecurePaymentFill,
+            gradient: "from-emerald-400 to-green-500",
+            bgGradient: "from-emerald-200 to-green-200",
+            description: "Manage billing & payments",
+            delay: 0.4,
+            path: "/customer/payments",
+        },
+        {
+            label: "My Rates",
+            icon: DollarSign,
+            gradient: "from-blue-400 to-cyan-500",
+            bgGradient: "from-blue-200 to-cyan-200",
+            description: "View & upgrade plans",
+            delay: 0.5,
+            path: "/customer/my-rates",
+        },
+        {
+            label: "24/7 Support",
+            icon: GrSettingsOption,
+            gradient: "from-purple-400 to-indigo-500",
+            bgGradient: "from-purple-200 to-indigo-200",
+            description: "Get instant help",
+            delay: 0.6,
+            path: "/customer/support",
+        },
+        {
+            label: "Profile Settings",
+            icon: Settings,
+            gradient: "from-orange-400 to-amber-500",
+            bgGradient: "from-orange-200 to-amber-200",
+            description: "Account preferences",
+            delay: 0.7,
+            path: "/customer/profile",
+        },
     ];
 
-    const balanceData = {
-        current: "$12,458.50",
-        available: "$15,000.00",
-        pending: "$542.50",
-        lastUpdated: "2 hours ago",
-        trend: "+12.5%",
-        status: "healthy"
-    };
-
-    const overdraftData = {
-        limit: "$5,000.00",
-        used: "$2,541.50",
-        available: "$2,458.50",
-        interestRate: "8.5%",
-        nextPayment: "Feb 15, 2026",
-        status: "active"
-    };
-
-    const portalData = {
-        portalName: "CD Management Portal",
-        username: "teleconnect_admin",
-        password: "Tc@2026SecurePass",
-        portalUrl: "https://cdportal.teleconnect.com",
-        lastLogin: "Jan 28, 2026 at 10:23 AM",
-        status: "active"
-    };
-
-    const handleCopy = (text, field) => {
-        navigator.clipboard.writeText(text);
-        setCopiedField(field);
-        setTimeout(() => setCopiedField(null), 2000);
-    };
 
     const scrollContainer = (direction) => {
         const container = document.getElementById('live-updates-scroll');
@@ -323,44 +261,6 @@ const Dashboard = () => {
         } else {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
-    };
-
-    // Custom Dot for Line Chart
-    const CustomDot = (props) => {
-        const { cx, cy, payload } = props;
-        const isUp = payload.trend === "up";
-
-        return (
-            <motion.g
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 0.3 }}
-            >
-                <circle
-                    cx={cx}
-                    cy={cy}
-                    r={6}
-                    fill={isUp ? "#10b981" : "#ef4444"}
-                    stroke="#fff"
-                    strokeWidth={2}
-                />
-                {isUp ? (
-                    <path
-                        d={`M ${cx - 3} ${cy + 1} L ${cx} ${cy - 2} L ${cx + 3} ${cy + 1}`}
-                        stroke="#fff"
-                        strokeWidth={1.5}
-                        fill="none"
-                    />
-                ) : (
-                    <path
-                        d={`M ${cx - 3} ${cy - 1} L ${cx} ${cy + 2} L ${cx + 3} ${cy - 1}`}
-                        stroke="#fff"
-                        strokeWidth={1.5}
-                        fill="none"
-                    />
-                )}
-            </motion.g>
-        );
     };
 
     return (
@@ -512,43 +412,13 @@ const Dashboard = () => {
 
                         {/* Right Side - Wider & Shorter Action Tabs */}
                         <div className="lg:col-span-3 grid grid-cols-2 gap-8">
-                            {[
-                                {
-                                    label: "Payment Center",
-                                    icon: RiSecurePaymentFill,
-                                    gradient: "from-emerald-400 to-green-500",
-                                    bgGradient: "from-emerald-200 to-green-200",
-                                    description: "Manage billing & payments",
-                                    delay: 0.4
-                                },
-                                {
-                                    label: "My Rates",
-                                    icon: DollarSign,
-                                    gradient: "from-blue-400 to-cyan-500",
-                                    bgGradient: "from-blue-200 to-cyan-200",
-                                    description: "View & upgrade plans",
-                                    delay: 0.5
-                                },
-                                {
-                                    label: "24/7 Support",
-                                    icon: GrSettingsOption,
-                                    gradient: "from-purple-400 to-indigo-500",
-                                    bgGradient: "from-purple-200 to-indigo-200",
-                                    description: "Get instant help",
-                                    delay: 0.6
-                                },
-                                {
-                                    label: "Profile Settings",
-                                    icon: Settings,
-                                    gradient: "from-orange-400 to-amber-500",
-                                    bgGradient: "from-orange-200 to-amber-200",
-                                    description: "Account preferences",
-                                    delay: 0.7
-                                },
-                            ].map((tab, i) => (
+                            {actionTabs.map((tab, i) => (
                                 <motion.div
                                     key={i}
-                                    className={`bg-gradient-to-br ${tab.bgGradient} border border-white/50 p-4 rounded-xl group hover:shadow-lg transition-all duration-300 cursor-pointer relative overflow-hidden h-[110px]`}
+                                    onClick={() => navigate(tab.path)}
+                                    className={`bg-gradient-to-br ${tab.bgGradient} border border-white/50 p-4 rounded-xl
+      group hover:shadow-lg transition-all duration-300 cursor-pointer
+      relative overflow-hidden h-[110px]`}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: tab.delay }}

@@ -26,17 +26,17 @@ const CustomerRoutes = () => {
       <Route path="/reset-password" element={<ResetPasswordPage />} />
 
         <Route path="/*" element={
-          <CustomerRoute>
+          // <CustomerRoute>
             <Routes>
               <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/payment" element={<PaymentsPage />} />
+              <Route path="/payments" element={<PaymentsPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/my-rates" element={<MyRatesPage />} />
               <Route path="/settings" element={<SettingsPage />} />
               <Route path="/support" element={<Support />} />
               <Route path="/add-ticket" element={<AddTroubleTicket />} />
             </Routes>
-          </CustomerRoute>
+          // </CustomerRoute>
         }
         />
     </Routes>

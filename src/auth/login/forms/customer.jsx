@@ -56,7 +56,7 @@ const CustomerLoginPage = () => {
     } catch (err) {
       console.error("Login error:", err);
       setError(
-        err.response?.data?.message ||
+        err.response?.data?.error ||
         "Login failed. Please check your credentials and try again."
       );
     } finally {

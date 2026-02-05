@@ -57,31 +57,32 @@ const InfoItem = ({ icon: Icon, label, value, accentColor }) => (
 
 const ProfilePage = () => {
   const { customerDetails } = useContext(CustomerAuthContext);
-  const [profileData, setProfileData] = useState(null);
+  // const [profileData, setProfileData] = useState(null);
+    const [profileData, setProfileData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [editableIps, setEditableIps] = useState([]);
   const [newIp, setNewIp] = useState({ ip: '', status: 'active' });
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchProfileData = async () => {
-      try {
-        if (!customerDetails?.id) {
-          console.error("Customer ID not available in context");
-          return;
-        }
-        const response = await axiosInstance.get(`api/customer/${customerDetails.id}`);
-        const ips = JSON.parse(response.data.customer.switchIps);
-        setProfileData(response.data.customer);
-        setEditableIps(ips);
-      } catch (error) {
-        console.error("Error fetching profile data", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProfileData();
-  }, [customerDetails.id]);
+  // useEffect(() => {
+  //   const fetchProfileData = async () => {
+  //     try {
+  //       if (!customerDetails?.id) {
+  //         console.error("Customer ID not available in context");
+  //         return;
+  //       }
+  //       const response = await axiosInstance.get(`api/customer/${customerDetails.id}`);
+  //       const ips = JSON.parse(response.data.customer.switchIps);
+  //       setProfileData(response.data.customer);
+  //       setEditableIps(ips);
+  //     } catch (error) {
+  //       console.error("Error fetching profile data", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchProfileData();
+  // }, [customerDetails.id]);
 
   const handleIpChange = (index, value) => {
     const updatedIps = [...editableIps];
@@ -114,19 +115,19 @@ const ProfilePage = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="w-12 h-12 border-3 border-orange-500 border-t-transparent rounded-full"
-        />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+  //       <motion.div
+  //         animate={{ rotate: 360 }}
+  //         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+  //         className="w-12 h-12 border-3 border-orange-500 border-t-transparent rounded-full"
+  //       />
+  //     </div>
+  //   );
+  // }
 
-  if (!profileData) return null;
+  // if (!profileData) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 py-6 px-4">

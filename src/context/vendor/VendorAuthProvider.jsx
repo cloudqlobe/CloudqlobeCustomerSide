@@ -4,7 +4,7 @@ import { jwtDecode } from "jwt-decode";
 
 const VendorAuthProvider = ({ children }) => {
   const [vendorDetails, setVendorDetails] = useState(() => {
-    const savedToken = sessionStorage.getItem("authToken");
+    const savedToken = sessionStorage.getItem("Ven-Au-To");
 
     if (savedToken) {
       try {
@@ -43,7 +43,7 @@ const VendorAuthProvider = ({ children }) => {
         name: decoded.name || "",
         address: decoded.address || "",
       });
-      sessionStorage.setItem("authToken", token); // ✅ Save token
+      sessionStorage.setItem("Ven-Au-To", token); // ✅ Save token
     } catch (error) {
       console.error("Invalid token:", error);
     }
@@ -58,7 +58,7 @@ const VendorAuthProvider = ({ children }) => {
       name: "",
       address: "",
     });
-    sessionStorage.removeItem("authToken"); // ✅ Remove token
+    sessionStorage.removeItem("Ven-Au-To"); // ✅ Remove token
   };
 
   return (
