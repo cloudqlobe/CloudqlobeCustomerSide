@@ -26,43 +26,12 @@ export const CarrierValidateRegisterForm = (companyDetails, userDetails, technic
   if (!userDetails.userLastname.trim()) {
     errors.userLastname = 'Last name is required';
   }
-  if (!userDetails.username.trim()) {
-    errors.username = 'Username is required';
-  }
+  
   if (!userDetails.userEmail.trim()) {
     errors.userEmail = 'Email is required';
   } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userDetails.userEmail)) {
     errors.userEmail = 'Invalid email format';
   }
-  // Password Validation
-  if (!userDetails.password) {
-    errors.password = 'Password is required';
-  } else if (userDetails.password.length < 8) {
-    errors.password = 'Password must be at least 8 characters';
-  } else if (!/[A-Z]/.test(userDetails.password)) {
-    errors.password = 'Password must contain at least one uppercase letter';
-  } else if (!/[a-z]/.test(userDetails.password)) {
-    errors.password = 'Password must contain at least one lowercase letter';
-  } else if (!/[0-9]/.test(userDetails.password)) {
-    errors.password = 'Password must contain at least one number';
-  } else if (!/[^A-Za-z0-9]/.test(userDetails.password)) {
-    errors.password = 'Password must contain at least one special character';
-  }
-  if (userDetails.password !== userDetails.confirmPassword) {
-    errors.confirmPassword = 'Passwords do not match';
-  }
-
-  /* ---------------- Teams ID (Carrier Only) ---------------- */
-  // if (!userDetails?.teamsId?.trim()) {
-  //   errors.teamsId = "Teams ID is required";
-  // } else if (userDetails.teamsId.length < 3) {
-  //   errors.teamsId = "Teams ID must be at least 3 characters";
-  // } else if (userDetails.teamsId.length > 20) {
-  //   errors.teamsId = "Teams ID must not exceed 20 characters";
-  // } else if (!/^[a-zA-Z0-9_-]+$/.test(userDetails.teamsId)) {
-  //   errors.teamsId =
-  //     "Teams ID can contain only letters, numbers, hyphens, and underscores";
-  // }
 
   // Designation Validation
   if (!userDetails.designation.trim()) {
@@ -108,11 +77,6 @@ export const submitRegistration = async (formData) => {
   try {
     // Create a deep copy of the formData to avoid mutating the original object
     const dataToSend = JSON.parse(JSON.stringify(formData));
-
-    // Remove confirmPassword from the user object if it exists
-    if (dataToSend.user && dataToSend.user.confirmPassword) {
-      delete dataToSend.user.confirmPassword;
-    }
 
     const response = await axiosInstance.post('/api/vendor/create', dataToSend, {
       headers: {

@@ -1,12 +1,9 @@
-import React, { useState } from "react";
-import { Eye, EyeOff, Facebook, Twitter, Instagram, Linkedin, X } from "lucide-react";
+import { useState } from "react";
+import { Facebook, Twitter, Instagram, Linkedin, X } from "lucide-react";
 import { Globe, Wifi, Shield, Zap, Cloud, Star, Diamond, Hexagon, Triangle, Server, Database, Lock, Smartphone, Users, Rocket, Heart, Sparkles } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 import { CustomerValidateRegisterForm, submitRegistration } from "../Validation/customerFormValidation";
 
 const CustomerRegisterFlow = () => {
-    const Navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -24,11 +21,10 @@ const CustomerRegisterFlow = () => {
     const [userDetails, setUserDetails] = useState({
         userFirstname: "",
         userLastname: "",
-        username: "",
         userEmail: "",
         userMobile: "",
-        password: "",
-        confirmPassword: "",
+        alternateMobile: "",
+        teamId: "",
         designation: "",
     });
 
@@ -113,8 +109,36 @@ const CustomerRegisterFlow = () => {
             };
 
             await submitRegistration(formData);
+
             setSubmitSuccess(true);
-            Navigate('/customer/login')
+            setCompanyDetails({
+                companyName: "",
+                companyEmail: "",
+                contactPerson: "",
+                country: "",
+                companyPhone: "",
+                address: "",
+                companyWebsite: "",
+            });
+
+            setUserDetails({
+                userFirstname: "",
+                userLastname: "",
+                userEmail: "",
+                userMobile: "",
+                alternateMobile: "",
+                teamId: "",
+                designation: "",
+            });
+
+            setTechnicalDetails({
+                supportEmail: "",
+                sipPort: "",
+                switchIps: [{ ip: "", status: "" }],
+            });
+
+            setErrors({});
+
         } catch (error) {
             console.log("error", error);
 
@@ -372,7 +396,7 @@ const CustomerRegisterFlow = () => {
                                     placeholder="Company Phone"
                                 />
 
-                                <textarea
+                                <input
                                     value={companyDetails.address}
                                     onChange={(e) => handleCompanyChange("address", e.target.value)}
                                     className="w-full p-3 border border-gray-200 rounded-lg text-sm resize-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all"
@@ -435,28 +459,6 @@ const CustomerRegisterFlow = () => {
 
                                 <div>
                                     <input
-                                        type="text"
-                                        value={userDetails.username}
-                                        onChange={(e) => handleUserChange("username", e.target.value)}
-                                        className={`w-full p-3 border ${errors.username ? 'border-red-500' : 'border-gray-200'} rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all`}
-                                        placeholder="Username"
-                                    />
-                                    {errors && (
-                                        <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                                            {errors?.form?.includes("username") ? (
-                                                <>
-                                                    <X className="w-3 h-3" />
-                                                    <span>This username is not available</span>
-                                                </>
-                                            ) : (
-                                                errors.username
-                                            )}
-                                        </p>
-                                    )}
-                                </div>
-
-                                <div>
-                                    <input
                                         type="email"
                                         value={userDetails.userEmail}
                                         onChange={(e) => handleUserChange("userEmail", e.target.value)}
@@ -485,37 +487,20 @@ const CustomerRegisterFlow = () => {
                                     placeholder="Mobile"
                                 />
 
-                                <div>
-                                    <div className="relative">
-                                        <input
-                                            type={showPassword ? "text" : "password"}
-                                            value={userDetails.password}
-                                            onChange={(e) => handleUserChange("password", e.target.value)}
-                                            className={`w-full p-3 border ${errors.password ? 'border-red-500' : 'border-gray-200'} rounded-lg text-sm pr-10 focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all`}
-                                            placeholder="Password"
-                                        />
-                                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                        </button>
-                                    </div>
-                                    {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-                                </div>
-
-                                <div>
-                                    <div className="relative">
-                                        <input
-                                            type={showPassword ? "text" : "password"}
-                                            value={userDetails.confirmPassword}
-                                            onChange={(e) => handleUserChange("confirmPassword", e.target.value)}
-                                            className={`w-full p-3 border ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} rounded-lg text-sm pr-10 focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all`}
-                                            placeholder="Confirm Password"
-                                        />
-                                        <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                        </button>
-                                    </div>
-                                    {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
-                                </div>
+                                <input
+                                    type="text"
+                                    value={userDetails.alternateMobile}
+                                    onChange={(e) => handleUserChange("alternateMobile", e.target.value)}
+                                    className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                                    placeholder="Alternate Mobile"
+                                />
+                                <input
+                                    type="text"
+                                    value={userDetails.teamId}
+                                    onChange={(e) => handleUserChange("teamId", e.target.value)}
+                                    className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                                    placeholder="Team ID"
+                                />
 
                                 <div>
                                     <input

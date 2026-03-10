@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GrSettingsOption } from "react-icons/gr";
 import { RiSecurePaymentFill } from "react-icons/ri";
@@ -33,11 +33,14 @@ import {
 } from "recharts";
 import Navbar from "../public/Components/Navbar";
 import { useNavigate } from "react-router-dom";
+import CustomerAuthContext from "../context/customer/CustomerAuthContext";
 
 
 const Dashboard = () => {
+        const { customerDetails } = useContext(CustomerAuthContext);
     const navigate = useNavigate();
     const [userMenuOpen, setUserMenuOpen] = useState(false);
+console.log(customerDetails);
 
     const trafficData = [
         { time: "00", value: 12, trend: "down" },
@@ -53,7 +56,6 @@ const Dashboard = () => {
         { time: "20", value: 10, trend: "down" },
         { time: "22", value: 20, trend: "up" },
     ];
-
 
     const liveUpdates = [
         {
@@ -344,7 +346,7 @@ const Dashboard = () => {
                                             </div>
                                             <p className="text-sm font-semibold text-gray-800 truncate">
                                                 <span className="text-gray-500 font-medium">Customer ID :</span>{" "}
-                                                TEL123456
+                                                {customerDetails.customerId}
                                             </p>
                                         </motion.div>
 
@@ -359,7 +361,7 @@ const Dashboard = () => {
                                             </div>
                                             <p className="text-sm font-semibold text-gray-800 truncate">
                                                 <span className="text-gray-500 font-medium">Company Name :</span>{" "}
-                                                TeleConnect Solutions
+                                                {customerDetails.companyName}
                                             </p>
                                         </motion.div>
 
@@ -377,7 +379,7 @@ const Dashboard = () => {
 
                                                 <p className="text-xs font-semibold text-gray-800 truncate">
                                                     <span className="text-gray-500 font-medium">Location :</span>{" "}
-                                                    Delhi, IN
+                                                    {customerDetails.address}
                                                 </p>
                                             </motion.div>
 
@@ -396,7 +398,10 @@ const Dashboard = () => {
                                                         <span className="text-gray-500 font-medium">Email</span>
                                                     </p>
                                                 </div>
-
+                                                <p className="text-xs font-semibold text-gray-800 truncate">
+                                                    {/* <span className="text-gray-500 font-medium">Location :</span>{" "} */}
+                                                    {customerDetails.companyEmail}
+                                                </p>
                                                 {/* VERIFIED TAB */}
                                                 <span className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-bold text-green-700 bg-green-200 rounded-full">
                                                     <CheckCircle className="w-3 h-3" />

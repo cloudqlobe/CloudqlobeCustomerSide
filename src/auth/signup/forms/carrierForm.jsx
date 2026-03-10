@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { Eye, EyeOff, Rocket, X } from 'lucide-react';
+import { Rocket, X } from 'lucide-react';
 import { CarrierValidateRegisterForm, submitRegistration } from '../Validation/carrierFormValidation';
-import { useNavigate } from 'react-router-dom';
 
 export default function CareersRegistration() {
-  const Navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [errors, setErrors] = useState({});
@@ -24,11 +20,10 @@ export default function CareersRegistration() {
   const [userDetails, setUserDetails] = useState({
     userFirstname: "",
     userLastname: "",
-    username: "",
+    teamId: "",
     userEmail: "",
     userMobile: "",
-    password: "",
-    confirmPassword: "",
+    alternateMobile: "",
     designation: "",
   });
 
@@ -114,7 +109,33 @@ export default function CareersRegistration() {
 
       await submitRegistration(formData);
       setSubmitSuccess(true);
-      Navigate('/customer/login')
+                  setCompanyDetails({
+                companyName: "",
+                companyEmail: "",
+                contactPerson: "",
+                country: "",
+                companyPhone: "",
+                address: "",
+                companyWebsite: "",
+            });
+
+            setUserDetails({
+                userFirstname: "",
+                userLastname: "",
+                userEmail: "",
+                userMobile: "",
+                alternateMobile: "",
+                teamId: "",
+                designation: "",
+            });
+
+            setTechnicalDetails({
+                supportEmail: "",
+                sipPort: "",
+                switchIps: [{ ip: "", status: "" }],
+            });
+
+            setErrors({});
     } catch (error) {
       console.log("error", error);
 
@@ -276,7 +297,7 @@ export default function CareersRegistration() {
                 placeholder="Company Phone"
               />
 
-              <textarea
+              <input
                 value={companyDetails.address}
                 onChange={(e) => handleCompanyChange("address", e.target.value)}
                 placeholder="Address"
@@ -320,27 +341,6 @@ export default function CareersRegistration() {
                 />
                 {errors.userLastname && <p className="text-red-500 text-xs mt-1">{errors.userLastname}</p>}
               </div>
-              <div>
-                <input
-                  type="text"
-                  value={userDetails.username}
-                  onChange={(e) => handleUserChange("username", e.target.value)}
-                  className={`w-full px-4 py-3 ${errors.username ? 'border-red-500' : 'border-gray-200'} bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all`}
-                  placeholder="Username"
-                />
-                {errors && (
-                  <p className="text-red-500 text-xs mt-1 flex items-center gap-1">
-                    {errors?.form?.includes("username") ? (
-                      <>
-                        <X className="w-3 h-3" />
-                        <span>This username is not available</span>
-                      </>
-                    ) : (
-                      errors.username
-                    )}
-                  </p>
-                )}
-              </div>
 
               <div>
                 <input
@@ -371,44 +371,20 @@ export default function CareersRegistration() {
                 className={`w-full px-4 py-3 ${errors.userMobile ? 'border-red-500' : 'border-gray-200'} bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all`}
                 placeholder="Mobile"
               />
-              <div>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    value={userDetails.password}
-                    onChange={(e) => handleUserChange("password", e.target.value)}
-                    placeholder="Password"
-                    className={`w-full px-4 py-3 ${errors.password ? 'border-red-500' : 'border-gray-200'} bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all pr-12`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                {errors.password && <p className="text-red-500 text-xs mt-1">{errors.password}</p>}
-              </div>
-              <div>
-                <div className="relative">
-                  <input
-                    type={showConfirmPassword ? "text" : "password"}
-                    value={userDetails.confirmPassword}
-                    onChange={(e) => handleUserChange("confirmPassword", e.target.value)}
-                    placeholder="Confirm Password"
-                    className={`w-full px-4 py-3 bg-gray-50 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-200'} border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 focus:border-transparent transition-all pr-12`}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                  >
-                    {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                  </button>
-                </div>
-                {errors.confirmPassword && <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>}
-              </div>
+              <input
+                type="text"
+                value={userDetails.alternateMobile}
+                onChange={(e) => handleUserChange("alternateMobile", e.target.value)}
+                className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                placeholder="Alternate Mobile"
+              />
+              <input
+                type="text"
+                value={userDetails.teamId}
+                onChange={(e) => handleUserChange("teamId", e.target.value)}
+                className="w-full p-3 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
+                placeholder="Team ID"
+              />
               <div>
                 <input
                   type="text"

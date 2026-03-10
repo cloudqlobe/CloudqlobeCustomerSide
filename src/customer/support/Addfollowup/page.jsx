@@ -14,13 +14,15 @@ const AddTroubleTicket = () => {
 
   const [ticketDetails, setTicketDetails] = useState({
     customerId: "",
+    customerDBId:"",
     companyName: "",
     ticketCategory: "service",
     ticketDescription: "",
     followUpMethod: "call",
     status: "Pending",
     ticketPriority: 'Low',
-    ticketTime: new Date().toISOString(), // Ensure it's a valid date string
+    ticketTime: new Date().toISOString(),
+    accountManager:"",
   });
 
 useEffect(() => {
@@ -31,8 +33,10 @@ useEffect(() => {
       setCustomers([response.data.customer]);
       setTicketDetails((prevDetails) => ({ 
         ...prevDetails, 
-        customerId: id, 
-        companyName: response.data.companyName 
+        customerDBId: id,
+        customerId: customerDetails?.customerId, 
+        companyName: response?.data.companyName,
+        accountManager: response?.data.accountManager,
       }));
     } catch (error) {
       console.error("Error fetching customer by ID:", error);
@@ -85,15 +89,17 @@ useEffect(() => {
                 setSelectedCustomer(e.target.value);
                 setTicketDetails({
                   ...ticketDetails,
-                  customerId: customer.id,
+                  customerId: customer.customerId,
+                  customerDBId: customer.id,
                   companyName: customer.companyName,
+                  accountManager: customer?.accountManager
                 });
               }}
             >
               <option value="">Select Company Name</option>
               {customers.map((customer) => (
                 <option key={customer.id} value={customer.id}>
-                  {customer.companyName} ({customer.customerType})
+                  {customer.companyName} ({customer.leadType})
                 </option>
               ))}
             </select>
